@@ -1,0 +1,151 @@
+<html>
+<head>
+<title>
+stills2dv workfile syntax
+</title>
+</head>
+<body>
+<a href="index.html"><img src="logo.jpg" alt="stills2dv logo"><br>click here for stills2dv main page</a><P>
+
+<H2>stills2dv workfile vocabulary and syntax</H2>
+<h5>You may want to look first at the simple examples further on this page</h5>
+
+A workfile is divided in lines of text, each line may be an action line or may be a configuration line.<P>
+An action line must start with at least one "img" command or one "continue" command and should normally comprise some or all other action commands among: duration, startpoint, endpoint, zoom and crossfade.<P>
+
+Beside img and continue all actions command may or may not be present on the line, their default value will be used if absent.<P>
+
+Those configuration commands: framerate, outputtype, geometry, owidth, oheight and their synonyms should all be used before the very first action command and not after. Use of them after an action command will make weird results if the application does not simply crash.<P>
+
+Those configuration commands: backgroundcolor, jpegquality and their synonyms may be use in any line, action or config.
+
+
+<table border="1">
+<tr><td>backgroundcolor</td><td>Requires 1 hexadecimal RGB parameter: Changes the background color from its default value (black 0x000000) to whatever hexadecimal RGB value you want, like ff0000 for red, 004400 for dark green, etc.. Does not require to be in an action line   </td></tr>
+<tr><td>bgcolor</td><td> Synonym for backgroundcolor </td></tr>
+<tr><td>continue</td><td> Requires no parameter: continue takes the image of the previous line and takes its endpoint as the new startpoint, the ending zoom value of the previous line will be taken as the default zoom value.   </td></tr>
+<tr><td>crossfade</td><td>Requires 1 time parameter: It cannot be on the first action command as the crossfading will occur with the previous line, the parameter must be the number of seconds with decimals, if no duration command is defined after the crossfade on the same line the duration will be defaulted to the crossfade paramter   </td></tr>
+<tr><td>defaultcolor</td><td> synonym for backgroundcolor </td></tr>
+<tr><td>duration</td><td> Requires 1 time parameter: this should be the last command in an action line, it defines the duration of the whole line. If not present the duration will either default to the value of crossfade if present on the same line or it will be defaulted to 10.0 seconds</td></tr>
+<tr><td>endpoint</td><td>Requires a parameter, If you wish to pan in your image you have to set a startpoint and an endpoint. If no endpoint is present it will default to the startpoint value (it will not pan for the duration of this action). valid parameters are: <br>
+<ul>
+<li>any X,Y values like 500,500 or 0,0 etc..
+<li>center
+<li>top
+<li>bottom
+<li>left
+<li>right
+<li>topright
+<li>topleft
+<li>bottomright
+<li>bottomleft
+</ul>
+ </td></tr>
+<tr><td>fps</td><td> synonym for framerate   </td></tr>
+<tr><td>framerate</td><td>Requires 1 parameter with decimals, it should be define before any action line and it will default to 30 if not present.   </td></tr>
+<tr><td>geometry</td><td> synonym for resolution   </td></tr>
+<tr><td>height</td><td> synonym for outputheight   </td></tr>
+<tr><td>img</td><td>requires 1 parameter: the filename of the picture for this action line.    </td></tr>
+<tr><td>jpegquality</td><td>requires 1 integer parameter: between 1 and 100, defaults to 90. This has no effect if the outputtype is ppm</td></tr>
+<tr><td>oheight</td><td> synonym for outputheight </td></tr>
+<tr><td>output</td><td> synonym for outputtype  </td></tr>
+<tr><td>outputheight</td><td>Requires 1 interger value: the size in pixel of the height of the output format. If needed this should be used before the first action command, if you use outputheight you should also use outputwidth. It will default to 480 if not defined </td></tr>
+<tr><td>outputtype</td><td> Requires 1 parameter: jpg or ppm, it must be used before the first action line, it will default to ppm if not defined.   </td></tr>
+<tr><td>outputwidth</td><td>  Requires 1 integer value: the size in pixel of the width of the output format. If needed this should be used before the first action command, if you use outputwidth you should also use outputheight. It will default to 720 if not defined </td></tr>
+<tr><td>owidth</td><td> synonym for outputwidth   </td></tr>
+<tr><td>pansmoothness</td><td> Requires any value between 0.000 and 0.5 (0.00 will turn off the smoothness feature). If not set the value will be defaulted at 0.200. (0.200 means that the first 20% of the time allocated for this panning will be accelerating and it will deccelerate in the last 20%)</td></tr>
+
+<tr><td>quality</td><td> synonym for jpegquality   </td></tr>
+<tr><td>resize</td><td> synonym for resolution   </td></tr>
+<tr><td>resolution</td><td> requires a size parameter: X:Y. It's faster to use than using both outputwidth and outputheight, it will default to 720x480 if not used   </td></tr>
+<tr><td>sharpness</td><td> Requires 1 float value between 0.5 and 5, the lower the number the blurrier the image will be and slower it will be to render. The higher it is the sharper is the image but some motion weaving artefacts will appear with slow pans and zooms. This latter kind of artefact is distracting and is a nuisance to any video compression encoding, I would recommend to leave it at its default value of 1.0</td></tr>
+<tr><td>size</td><td> synonym for resolution   </td></tr>
+<tr><td>startpoint</td><td> Requires a parameter, If you wish to pan in your image you have to set a startpoint and an endpoint. If no startpoint is present it will default to the center of the image or to the endpoint of the previous action line if a "continue" command has been used on the present line. valid parameters are: <br>
+<ul>
+<li>any X,Y values like 500,500 or 0,0 etc..
+<li>center
+<li>top
+<li>bottom
+<li>left
+<li>right
+<li>topright
+<li>topleft
+<li>bottomright
+<li>bottomleft
+</ul>
+   </td></tr>
+<tr><td>type</td><td> synonym to outputtype   </td></tr>
+<tr><td>width</td><td>synonym to outputwidth    </td></tr>
+<tr><td>zoom</td><td>requires 1 or 2 parameters (separated by a coma). If just one parameter then the whole action line will be at the same zoom value (the one provided) but if 2 values are provided the action line will zoom from value 1 to value 2 according to the duration value of the action line. here are the valid parameters:
+<ul>
+<li>any numerical with decimals like 1.0, 100.0 or 0.05. A zoom of 5.0 will mean that just 1/5th of the image width will be seen on the output
+<li>FITWIDTH  (which is equivalent to 1.0) the width of the original image will be presented in whole in the output
+<li>FITHEIGHT the height of the original picture will be presented in whole in the output.
+<li>FIT The whole image will be presented in the output
+</ul>
+ </td></tr>
+<tr><td>zoomsmoothness</td><td> Requires any value between 0.000 and 0.5 (0.00 will turn off the smoothness feature). If not set the value will be defaulted at 0.200 (0.200 means that the first 20% of the time allocating for this zooming will be accelerating and it will deccelerate in the last 20%)</td></tr>
+</table>
+<P>
+<H2>Example A</H2>
+you have a 2048x3072 picture of yourself named img_2311.jpg and you wish to make a zoomout from your eyes to the whole picture that lasts 10 secs, you wish the output to be in PPM at 720x480 30fps for dv, using gimp you figured out that the coordinates between your eyes are 1024x503 (0,0 being the upper left corner).
+
+<pre>
+    img img_2311.jpg zoom 3.0,FIT startpoint 1024,503 endpoint CENTER duration 10.00
+</pre>
+
+<i>ppm is the default value, 720x480 is default, 30 fps is default... so we did not need to set anything, we just needed our image and its action, making it a one liner workfile</i>
+
+ 
+<h2>Example B</h2>
+you saw the animation with your picture and you liked it but you wish to make it nicer: with a short fade-in and fade-out and in full HD, you made a black image named black.jpg for the occasion:
+
+<pre>
+    resolution 1920x1080
+    fps 60
+    type jpg
+    img black.jpg duration 1.0
+    img img_2311.jpg zoom 3.0,FIT startpoint 1024,503 endpoint CENTER crossfade 1.0 duration 10.00
+    img black.jpg crossfade 1.0 duration 1.0
+</pre>
+<i>You should notice that even if we add up the duration values it amounts to 12.0 seconds but since there are 2 crossfade of 1.0 seconds each the amount of time the animation will last will still be 10.0 seconds.</i>
+
+<h2>Example C</h2>
+Thinking about it, you don't like that it zoom out, you would prefer zooming in in your eyes instead to make it more dramatic:
+<pre>
+    resolution 1920x1080
+    fps 60
+    type jpg
+    img black.jpg duration 1.0
+    img img_2311.jpg zoom FIT,3.0 startpoint CENTER endpoint 1024,503 crossfade 1.0 duration 10.00
+    img black.jpg crossfade 1.0 duration 1.0
+</pre>
+<i>that was an easy change, changing the zoom parameters from 3.0,FIT to FIT,3.0 and swapping also the endpoint parameters with the startpoint parameters...</i>
+
+<h2>Example D</h2>
+You still want the whole thing to last 10 seconds but you want your portrait to stay still a few seconds before starting zooming:
+<pre>
+    resolution 1920x1080
+    fps 60
+    type jpg
+    img black.jpg duration 1.0
+    img img_2311.jpg zoom FIT startpoint CENTER crossfade 1.0 duration 4.0
+    continue zoom FIT,3.0 startpoint CENTER endpoint 1024,503 duration 6.00
+    img black.jpg crossfade 1.0 duration 1.0
+</pre>
+<i>Notice the use of the continue command and that we spread the 10 seconds in a 4-6 split. </i>
+
+<h2>Example E</h2>
+You have a very long landscape.jpg image and you wish to pan very slowly from the left side of the picture to the right side, you want it in HD and at 30 fps in a way that the panning takes 5 minutes
+<pre>
+    resolution 1920x1080
+    fps 30
+    type jpg
+    img landscape.jpg zoom FITHEIGHT startpoint LEFT endpoint RIGHT duration 300.00
+</pre>
+<i>To calculate the left point the application must know the zoom factor so it is prudent to set the zoom before the startpoint</i>
+
+<P>
+<a href="index.html">click here to go back to main page</a>
+
+</body></html>

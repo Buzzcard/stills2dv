@@ -1,0 +1,183 @@
+<html>
+<head>
+<title>
+stills2dv home page
+</title>
+</head>
+<body>
+<table>
+<tr>
+  <td><img src="logo.jpg" alt="stills2dv logo"></td><td>An open source solution to make a movie out of still pictures, stills can be of any resolution (highest preferably for best results). The output also could be of any resolution, from a small video for youtube to a full HD (or more if you know what you're doing). Since we now can make JPGs for ffmpeg and mencoder as well as PPMs for encodedv this application could also be called; stills2mpeg
+</td>
+</tr>
+</table>
+<a href="http://deniscarl.com/stills2dv/">Click here </a>to get to the main website as it may be more up-to-date.<br>
+<table>
+<tr><td>
+<small><b>Changelog</b></small><br>
+<table border="1">
+<tr><td>alpha-0.600</td><td>
+<b>Changes in alpha-0.601</b> 
+<ul>
+<li>Bug fix: Application is not sensible anymore to capitalization in filename extensions for the image files. (no more crash when filename in high cap)
+<li>"make example" will produce a 720p 30hz example for better first effect.
+</ul>
+</td></tr>
+<tr><td>alpha-0.600</td><td>
+<b>Changes in alpha-0.600</b> 
+<ul>
+<li>New feature: motion blur, it slows down the rendering but the result is so much nicer.
+<li>A new command line feature: -nomotionblur which is self-explanatory.
+</ul>
+</td></tr>
+<tr><td>alpha-0.500</td><td>
+<b>Changes in alpha-0.500</b> 
+<ul>
+<li>A new command line feature: -fastrender which will turn off anti-aliasing totally and make the rendering something like 5 to 10 times faster, perfect for checking/developing/debugging the script.
+<li>A logic error was corrected with the anti-aliasing/sharpness, image is a tad clearer and the sharpness setting works as it should.
+</ul>
+</td></tr>
+<tr><td>alpha-0.400</td><td>
+<b>Changes in alpha-0.400</b> 
+<ul>
+<li>We now can display the image at work while the software is rendering; <i>it's more beautiful when it's useless (Cyrano de Bergerac)</i>.
+<li>A script, some pictures and a soundtrack are now packaged with the source so people will only need to do a "make example" to see what it can do.
+</ul>
+</td></tr>
+<tr><td>alpha-0.301</td><td>
+<b>Changes in alpha-0.301</b> (see <a href="http://www.youtube.com/watch?v=StqhzU8YPwg">this video</a> as an examples of the new features)
+<ul>
+<li>Configurable smoothness, pans and zoom now each have a smoothness setting (from 0.000 to 0.500) which will make any move to accelerate at start and decelerate at end so it would like more natural.
+<li>New parameters for startpoint and endpoint TOPRIGHT, TOPLEFT, BOTTOMRIGHT and BOTTOMLEFT have been added to the list (after TOP, BOTTOM, RIGHT, LEFT and CENTER).
+</ul>
+</td></tr>
+<tr><td>alpha-0.200</td><td>
+<b>Changes in alpha-0.200!</b>
+<ul>
+<li>The application now accepts png files as inputs (RGB, RGBA, GRAY or GRAY_ALPHA), not the indexed ones, not yet at least.
+<li>There was a bug with the TOP and BOTTOM keywords, it is now fixed.
+<li>Source code has been splitted in 5 files for clarity
+<li>interpolation is now better, less artefacts (motion weaving) when slowly panning
+<li>We can now set the sharpness of the output, it's something I added while working on the interpolation. Increasing the value of sharpness from its default value of 1.0 to 2.0 should bring back the distracting motion weaving artefacts in slow pans (but it will be a bit faster to render)
+</ul>
+</td></tr>
+<tr><td>alpha-0.100</td><td>
+<b>Big changes in alpha-0.100!</b>
+<ul>
+<li>After the second time that some changes in ImageMagick broke my stills2dv application I am proud to announce: No more dependancy on ImageMagick, no more intermediary script file, the executable will produce the ppms or the jpgs directly. 
+<li>resolution is now defined in the workfile, it's easy to make High-definition movies out of your pictures (requires ffmpeg or mencoder instead of encodedv)
+<li>we can choose the output as ppms or jpgs
+<li>zoom scale now has changed; 1.00 now means the same as fitwidth (used to be 1 pixel for 1 pixel).
+<li>We can now see the border of an image, we can zoom out at will.
+<li>smooth zooms and pans, even at very very low speed (low speed used to look clunky because moves were produced with a minimum of 1 pixel shift, now the limit is as a 32 bits float can do.
+<li>background color (a.k.a. border color) is now definable in the workfile and may even change in the middle of the movie.
+<li>crossfade now will work with 2 panning/zooming pictures. (used to be only between 2 fixed images)
+<li>Only 1 small drawback; ImageMagick's "convert" application was accepting almost all picture formats as inputs on the planet, my little stills2dv will only accept jpg files, Eventually I will add more formats in time.
+</ul>
+
+</td></tr>
+<tr><td>alpha-0.003</td><td>Now works fine with ImageMagick 6.2.4 (I'm not sure since which version but at one point convert could not handle having 2 "-crop" options on the same command line which resulted in disasters, I simply splitted the command line in 2.</td></tr>
+<tr><td>alpha-0.002</td><td>Now with NEW "crossfade" feature
+It is now possible to make a transition from one picture
+to another with a crossfade, using version alpha-0.002
+of stills2dv</td></tr></table></td></tr>
+</table>
+
+<H2>Make a workfile like this one:</H2> <PRE>
+resolution 720X480
+type ppm
+framerate 30.00
+backgroundcolor 0x000000
+pansmoothness 0.33
+zoomsmoothness 0.33
+img black.jpg duration                                                          5.66
+img crow.jpg startpoint 1865,1012 zoom 4 crossfade                              0.33
+continue zoom 4,fitwidth duration                                              13.33
+img black.jpg crossfade                                             8.66
+img wildboar.jpg zoom 4 startpoint 952,1544 crossfade               0.33
+continue endpoint 884,1148 duration                                             0.33
+continue zoom 4,fitwidth endpoint center duration                               0.33
+img wildboar2.jpg startpoint center endpoint 1988,1364 zoom fitwidth,4 duration 3.33
+continue duration                                                               4.0
+img tree.jpg zoom 4 startpoint 1436,2692 crossfade                  3.0
+continue duration                                                               1.0
+continue endpoint 880,1368 duration                                             3.0
+continue endpoint 1148,160 duration                                             7.0
+img black.jpg crossfade                                             4.0
+img goat.jpg zoom fitwidth crossfade                                2.0
+continue endpoint 1064,632 zoom 4 duration                                      6.7
+img baldeagle.jpg startpoint 1176,860 endpoint center zoom 4,fitwidth duration  0.33
+continue duration                                                               1.7
+img owl.jpg zoom 4 startpoint 857,1012 crossfade                    0.2
+continue duration                                                               0.2
+img baldeagle.jpg zoom fitwidth crossfade                           0.2
+continue duration                                                               0.2
+img owl.jpg zoom 4 startpoint 857,1012 crossfade                    0.2
+continue zoom 4,3 duration                                                      10.0
+img black.jpg crossfade                                             5.0
+continue duration						                3.0
+</PRE>
+<H3>
+<a href="workfile.html">Click here</a> for more information about the vocabulary and syntax of the workfile</H3>
+
+<H2>Run that workfile in stills2dv</H2> <PRE>
+
+   ./stills2dv -tmpdir tmp -showoutput workfile_standard.s2d
+
+</PRE>
+<H2>Encode all those newly produced 1816 frames in a DV stream</H2><PRE>
+ 
+  encodedv -e 1816 -a wav tmp/%05d.ppm myaudioexample.wav &gt; out.dv 
+
+</pre>
+
+<H2>you can produced 1920x1080 jpegs and create a FULL HD video stream:</H2><PRE>
+ 
+  mencoder mf://tmp/*.jpg -mf w=1920:h=1080:fps=30:type=jpg -ovc lavc \
+    -lavcopts vcodec=mpeg4:mbd=2:trell:vbitrate=16000 -oac copy -o output.avi
+</pre>
+
+<H2>ffmpeg also can grab jpegs and make a Full HD movie:</H2><PRE>
+ 
+  ffmpeg -r 30.00 -f image2 -i tmp/%05d.jpg -i someaudiofile.mp3 -target ntsc-dvd -s 1920x1080 -vb 9000k out.mpg
+
+</pre>
+
+<h2>use <a href="http://www.kinodv.org/">Kino (for standard DV)</a> or <a href="http://openmovieeditor.sourceforge.net/">Open Movie Editor (for mpegs and avi)</a> to make video editing</h2>
+<pre>  
+  kino
+   or
+  openmovieeditor
+</pre>
+<h2>And look at the result</h2>
+I created this little example movie with pictures I took myself
+and some soundtrack I created with audacity<P>
+<table>
+<tr><td>(1920x1080, HD Resolution)</td><td>mpeg2 file: </td><td> <a href="http://deniscarl.com/stills2dv/HD.mpg">HD.mpg</a> </td><td>(44M)<br></td></tr>
+<tr><td>(720x480 Standard Resolution)</td><td>mpeg2 file: </td><td> <a href="http://deniscarl.com/stills2dv/SD.mpg">SD.mpg</a> </td><td>(17M)<br></td></tr>
+</table><P>
+I also bought a song from magnatune.com which has a creative common license and I made this <a href="http://www.youtube.com/watch?v=m253q9xPo2I">Christmas video</a> now published on youtube (don't forget to click on the "watch in HD" link right under it). 
+
+</p><h2>Download the source</h2>
+
+Click <a href="http://sourceforge.net/project/showfiles.php?group_id=100418&amp;package_id=108052">here</a> to download the source.<br> 
+Source Hosted by:
+<a href="http://sourceforge.net/"> <img src="http://sourceforge.net/sflogo.php?group_id=100418&type=1" border="0" alt="SourceForge.net Logo"></a><br>
+
+
+
+<h2>Requirements</h2>
+
+<a href="http://sourceforge.net/projects/libjpeg/">libjpeg</a> for compiling stills2dv (this package should already installed on your Linux distribution by default)<br>
+and<br>
+
+<a href="http://www.libpng.org/pub/png/libpng.html">libpng</a> for compiling stills2dv (like libjpeg; this package should already installed on your Linux distribution by default)<br>
+and<br>
+
+<a href="http://libdv.sourceforge.net/">encodedv (part of libdv) for DV (standard definition only)</a><br>
+or<br>
+<a href="http://www.mplayerhq.hu/">mencoder (part of mplayer) for mpeg2, mpeg4, etc... (standard or high definition)</a><br>
+or<br>
+<a href="http://www.ffmpeg.org/">ffmpeg for mpeg2, mpeg4, etc... (standard or high definition)</a><br>
+
+</body></html>

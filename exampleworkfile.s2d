@@ -1,0 +1,43 @@
+resolution 1280x720
+framerate 29.97
+quality 90
+type jpg
+pansmoothness 0.5
+zoomsmoothness 0.5
+img example_data_files/PARROT.JPG zoom 1.01 startpoint LEFT endpoint RIGHT duration 0.4
+continue endpoint 944,1580 zoom 1.01,5.0 duration 0.4
+continue duration 0.1
+continue endpoint 1904,1664 duration	0.41
+continue duration 0.1
+continue endpoint 2188,836 duration 0.503
+continue duration 0.1
+continue endpoint 3296,540 duration 0.44
+continue duration 0.579
+img example_data_files/GRIPPETTE.JPG startpoint 965,500 endpoint 955,500 zoom 1.10 duration 2.042
+img example_data_files/autoroute.jpg zoom 3.0 startpoint 285,819 endpoint 861,771 duration 0.688
+continue endpoint 688,561 zoom 3.0,4.0 duration 0.61
+continue endpoint 175,420 zoom 4.0,4.5 duration 0.36
+continue endpoint 225,333 zoom 4.5,6.5 duration 0.623
+img example_data_files/youth.jpg zoom 1.5 startpoint left endpoint right duration 2.215
+img example_data_files/extraterrestre.jpg startpoint 1179,444 endpoint 1426,208 zoom 3.0,3.3 duration 1.726
+img example_data_files/door.jpg startpoint 594,327 endpoint 448,579 zoom 4.0,1.5 duration 2.648
+img example_data_files/nothing.jpg startpoint 955,600 endpoint 965,600 zoom 1.10 duration 1.884
+img example_data_files/gifts.jpg startpoint bottomleft endpoint bottomright zoom 1.5 duration 2.53
+img example_data_files/herisson.jpg startpoint 955,600 endpoint 965,600 zoom 1.10 duration 1.127
+continue endpoint 556,727 zoom 1.10,2.5 duration 0.277
+continue endpoint 676,721 zoom 2.5,3.5 duration 0.579
+img example_data_files/changeheart.jpg startpoint 570,934 zoom 5.0 duration 0.267
+continue endpoint 754,776 duration 0.267
+continue endpoint 1008,682 duration 0.267
+continue endpoint 1354,624 duration 0.267
+continue endpoint 1690,518 duration 0.267
+continue duration 0.6
+img example_data_files/SINGE.JPG startpoint 1430,916 zoom 4.0 endpoint 1410,322 duration 0.5
+continue zoom 4.0,5.0 endpoint 1270,310 duration 1.068
+continue endpoint 1508,306 duration 0.38
+continue endpoint 1270,310 duration 0.7
+img example_data_files/chien.jpg startpoint 900,445 endpoint 1199,445 zoom 2.0 duration 2.426
+img example_data_files/ticochons.jpg zoom 3.0,3.2 startpoint 1086,843 endpoint 699,780 duration 0.504
+continue zoom 3.2,3.4 endpoint 1096,690 duration 0.568
+continue zoom 3.4,3.7 endpoint 355,615 duration 0.533
+continue endpoint center zoom 3.7,1.0 duration 1.343
